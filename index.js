@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const fishionary = require("./Fishionary.json");
 
 const FISHES = [[], [], [], [], [], [], []];
@@ -65,6 +66,12 @@ app.get("/fish", (req, res) => {
   const fish = FISHES[category][index];
 
   res.json(fish);
+});
+
+app.get("/fishImg/:id", (req, res) => {
+  const filePath = path.join(__dirname, "fishImage", `${req.params.id}.png`);
+
+  res.sendFile(filePath);
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
