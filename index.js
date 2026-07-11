@@ -69,9 +69,54 @@ app.get("/fish", (req, res) => {
 });
 
 app.get("/fishImg/:id", (req, res) => {
-  const filePath = path.join(__dirname, "fishImage", `${req.params.id}.png`);
+  const fishId = req.params.id;
 
-  res.sendFile(filePath);
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body {
+          margin: 0;
+          overflow: hidden;
+          background: transparent;
+        }
+
+        img {
+          position: absolute;
+          width: 500px;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: -500px;
+          animation: slide 5s ease-in-out forwards;
+        }
+
+        @keyframes slide {
+          0% {
+            bottom: -500px;
+          }
+
+          20% {
+            bottom: 50px;
+          }
+
+          80% {
+            bottom: 50px;
+          }
+
+          100% {
+            bottom: -500px;
+          }
+        }
+      </style>
+    </head>
+
+    <body>
+      <img src="/fishImg/${fishId}">
+    </body>
+
+    </html>
+  `);
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
