@@ -69,6 +69,12 @@ app.get("/fish", (req, res) => {
 });
 
 app.get("/fishImg/:id", (req, res) => {
+  const filePath = path.join(__dirname, "fishImage", `${req.params.id}.png`);
+
+  res.sendFile(filePath);
+});
+
+app.get("/fishAlert/:id", (req, res) => {
   const fishId = req.params.id;
 
   res.send(`
